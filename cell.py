@@ -38,8 +38,8 @@ class Cell:
             self._win.draw_line(bottom_wall)
     
     def draw_move(self, to_cell, undo=False):
-        from_half_length1 = (self._x2 - self._x1) // 2
-        to_half_length2 = (to_cell._x2 - to_cell._x1) // 2
+        from_half_length1 = abs(self._x2 - self._x1) // 2
+        to_half_length2 = abs(to_cell._x2 - to_cell._x1) // 2
         
         from_center_x = self._x1 + from_half_length1
         from_center_y = self._y1 + from_half_length1
