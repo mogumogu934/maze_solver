@@ -1,3 +1,4 @@
+from constants import maze_x_offset, maze_y_offset
 from cell import Cell
 from graphics import Window
 import time
@@ -13,8 +14,8 @@ class Maze:
         cell_size_y,
         win=None,
     ):
-        self._x1 = x1
-        self._y1 = y1
+        self._x1 = x1 + maze_x_offset
+        self._y1 = y1 + maze_y_offset
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._cell_size_x = cell_size_x
@@ -25,7 +26,7 @@ class Maze:
     
     def _create_cells(self):
         if self._num_rows < 3 or self._num_cols < 3:
-            raise ValueError("Cannot have fewer than 3 rows and columns")
+            raise ValueError("Screen resolution is too small. Cannot create a valid maze.")
         self._cells = []
         for i in range (self._num_cols):
             self._cells.append([])
@@ -36,8 +37,8 @@ class Maze:
     def _draw_cell(self, i, j):
         if self._win is None:
             return
-        cell_x1 = self._x1 + (i * self._cell_size_x)
-        cell_y1 = self._y1 + (j * self._cell_size_y)
+        cell_x1 = self._x1 + (i * self._cell_size_x) # i = column number
+        cell_y1 = self._y1 + (j * self._cell_size_y) # j = row number
         cell_x2 = cell_x1 + self._cell_size_x
         cell_y2 = cell_y1 + self._cell_size_x
         
@@ -49,4 +50,10 @@ class Maze:
             return
         self._win.redraw()
         time.sleep(0.025)
+        
+    def _break_entrance_and_exit(self):
+        self._cells[0][0].has_top_wall = False
+        self._draw_cell(0, 0)
+        self._cells[-1][-1].has_bottom_wall = False
+        self._draw_cell(self._num_cols - 1, self._num_rows - 1) # _draw_cell needs the actual indices
         
