@@ -11,7 +11,7 @@ class Maze:
         num_cols,
         cell_size_x,
         cell_size_y,
-        win,
+        win=None,
     ):
         self._x1 = x1
         self._y1 = y1
@@ -24,6 +24,8 @@ class Maze:
         self._create_cells()
     
     def _create_cells(self):
+        if self._num_rows < 3 or self._num_cols < 3:
+            raise ValueError("Cannot have fewer than 3 rows and columns")
         self._cells = []
         for i in range (self._num_cols):
             self._cells.append([])
