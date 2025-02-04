@@ -3,8 +3,8 @@ screen_height = 1080
 min_dimension = min(screen_width, screen_height)
 margin = int(min_dimension * 0.025) # 27
 
-num_rows = 9 # int(min_dimension * (0.025 * 2 / 3)) # 18
-num_cols = 9 # int(min_dimension * (0.025 * 2 / 3)) # 18
+num_rows = int(min_dimension * (0.025 * 2 / 3)) # 18
+num_cols = int(min_dimension * (0.025 * 2 / 3)) # 18
 cell_size_x = int((min_dimension - 2 * margin) / num_cols) # 54
 cell_size_y = int((min_dimension - 2 * margin) / num_rows) # 54
 

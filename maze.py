@@ -13,7 +13,7 @@ class Maze:
         cell_size_x,
         cell_size_y,
         win=None,
-        seed=None
+        seed=None,
     ):
         self._cells = []
         self._x1 = x1 + maze_x_offset
@@ -53,13 +53,13 @@ class Maze:
         y2 = y1 + self._cell_size_x
         
         self._cells[i][j].draw(x1, y1, x2, y2)
-        self._animate()
+        self._animate(0.0125)
     
-    def _animate(self):
+    def _animate(self, wait_length):
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.025)
+        time.sleep(wait_length)
         
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -90,18 +90,18 @@ class Maze:
                 next_cell_i = possible_directions[direction][0]
                 next_cell_j = possible_directions[direction][1]
                 
-                if direction == "up":
-                    self._cells[i][j].has_top_wall = False
-                    self._cells[next_cell_i][next_cell_j].has_bottom_wall = False
-                elif direction == "down":
+                if direction == "down":
                     self._cells[i][j].has_bottom_wall = False
                     self._cells[next_cell_i][next_cell_j].has_top_wall = False
-                elif direction == "left":
-                    self._cells[i][j].has_left_wall = False
-                    self._cells[next_cell_i][next_cell_j].has_right_wall = False
                 elif direction == "right":
                     self._cells[i][j].has_right_wall = False
                     self._cells[next_cell_i][next_cell_j].has_left_wall = False
+                elif direction == "up":
+                    self._cells[i][j].has_top_wall = False
+                    self._cells[next_cell_i][next_cell_j].has_bottom_wall = False
+                elif direction == "left":
+                    self._cells[i][j].has_left_wall = False
+                    self._cells[next_cell_i][next_cell_j].has_right_wall = False
                     
                 self._break_walls_r(next_cell_i, next_cell_j)
                 
@@ -110,3 +110,42 @@ class Maze:
             for cell in col:
                 cell.visited = False
                 
+    def solve(self):
+        return self._solve_r(0, 0)
+        
+    def _solve_r(self, i, j):
+        self._animate(0.025)
+        self._cells[i][j].visited = True    # i = column number (x position), j = row number (y position)
+        if i == self._num_cols - 1 and j == self._num_rows - 1:
+            return True
+        
+        if j < self._num_rows - 1 and not self._cells[i][j + 1].has_top_wall and not self._cells[i][j + 1].visited:  # cell below
+            self._cells[i][j].draw_move(self._cells[i][j + 1])
+            if self._solve_r(i, j + 1):
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i][j + 1], undo=True)
+                
+        if i < self._num_cols - 1 and not self._cells[i + 1][j].has_left_wall and not self._cells[i + 1][j].visited:  # cell right
+            self._cells[i][j].draw_move(self._cells[i + 1][j])
+            if self._solve_r(i + 1, j):
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i + 1][j], undo=True)
+                
+        if j > 0 and not self._cells[i][j - 1].has_bottom_wall and not self._cells[i][j - 1].visited:   # cell above
+            self._cells[i][j].draw_move(self._cells[i][j - 1])
+            if self._solve_r(i, j - 1):
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i][j - 1], undo=True)
+                
+        if i > 0 and not self._cells[i - 1][j].has_right_wall and not self._cells[i - 1][j].visited:   # cell left
+            self._cells[i][j].draw_move(self._cells[i - 1][j])
+            if self._solve_r(i - 1, j):
+                return True               
+            else:
+                self._cells[i][j].draw_move(self._cells[i - 1][j], undo=True)
+                
+        return False
+    
