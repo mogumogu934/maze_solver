@@ -35,5 +35,5 @@ class Line:
         self.point2 = point2
     
     def draw(self, canvas, fill_color):
-        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=4)
+        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=3)
         
