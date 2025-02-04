@@ -1,7 +1,6 @@
 from constants import maze_x_offset, maze_y_offset
 from cell import Cell
 import time
-from enum import Enum
 import random
 
 class Maze:
@@ -47,8 +46,8 @@ class Maze:
     def _draw_cell(self, i, j):
         if self._win is None:
             return
-        x1 = self._x1 + (i * self._cell_size_x)
-        y1 = self._y1 + (j * self._cell_size_y)
+        x1 = self._x1 + (i * self._cell_size_x) # i = column number (x position)
+        y1 = self._y1 + (j * self._cell_size_y) # j = row number (y position)
         x2 = x1 + self._cell_size_x
         y2 = y1 + self._cell_size_x
         
@@ -59,7 +58,7 @@ class Maze:
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.05)
+        time.sleep(0.025)
         
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -71,24 +70,24 @@ class Maze:
         self._cells[i][j].visited = True    # i = column number (x position), j = row number (y position)
         
         while True:
-            to_visit = {}
+            possible_directions = {}
             if j > 0 and not self._cells[i][j - 1].visited:   # cell above
-                to_visit["up"] = (i, j - 1)
+                possible_directions["up"] = (i, j - 1)
             if j < self._num_rows - 1 and not self._cells[i][j + 1].visited:  # cell below
-                to_visit["down"] = (i, j + 1)
+                possible_directions["down"] = (i, j + 1)
             if i > 0 and not self._cells[i - 1][j].visited:   # cell left
-                to_visit["left"] = (i - 1, j)
+                possible_directions["left"] = (i - 1, j)
             if i < self._num_cols - 1 and not self._cells[i + 1][j].visited:  # cell right
-                to_visit["right"] = (i + 1, j)
+                possible_directions["right"] = (i + 1, j)
                 
-            if not to_visit:
+            if not possible_directions:
                 self._draw_cell(i, j)
                 return
             
             else:
-                direction = random.choice(list(to_visit.keys()))
-                next_cell_i = to_visit[direction][0]
-                next_cell_j = to_visit[direction][1]
+                direction = random.choice(list(possible_directions.keys()))
+                next_cell_i = possible_directions[direction][0]
+                next_cell_j = possible_directions[direction][1]
                 
                 if direction == "up":
                     self._cells[i][j].has_top_wall = False

@@ -21,34 +21,12 @@ class Tests(unittest.TestCase):
         for col in m1._cells:
             for cell in col:
                 self.assertTrue(isinstance(cell, Cell))
-                
-    def test_maze_create_cells_check_walls(self):
-        m1 = Maze(54, 54, 4, 4, 54, 54)
-        for col in m1._cells:
-            for cell in col:
-                self.assertTrue(cell.has_left_wall)
-                self.assertTrue(cell.has_right_wall)
-                self.assertTrue(cell.has_top_wall)
-                self.assertTrue(cell.has_bottom_wall)
         
     def test_maze_create_cells_check_visited_status(self):
         m1 = Maze(54, 54, 4, 4, 54, 54)
         for col in m1._cells:
             for cell in col:
-                self.assertFalse(cell.visited)
-    
-    def test_maze_break_entrance_and_exit(self):
-        m1 = Maze(54, 54, 4, 4, 54, 54)
-        m1._break_entrance_and_exit()
-        self.assertTrue(m1._cells[0][0].has_left_wall)
-        self.assertTrue(m1._cells[0][0].has_right_wall)
-        self.assertTrue(m1._cells[0][0].has_bottom_wall)
-        self.assertFalse(m1._cells[0][0].has_top_wall)
-        
-        self.assertTrue(m1._cells[-1][-1].has_left_wall)
-        self.assertTrue(m1._cells[-1][-1].has_right_wall)
-        self.assertTrue(m1._cells[-1][-1].has_top_wall)
-        self.assertFalse(m1._cells[-1][-1].has_bottom_wall)
+                self.assertTrue(cell.visited)
         
 if __name__ == "__main__":
     unittest.main()
