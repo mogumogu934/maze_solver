@@ -1,4 +1,3 @@
-from constants import maze_x_offset, maze_y_offset
 from cell import Cell
 import time
 import random
@@ -16,8 +15,8 @@ class Maze:
         seed=None,
     ):
         self._cells = []
-        self._x1 = x1 + maze_x_offset
-        self._y1 = y1 + maze_y_offset
+        self._x1 = x1
+        self._y1 = y1
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._cell_size_x = cell_size_x
