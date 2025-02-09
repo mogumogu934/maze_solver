@@ -1,7 +1,7 @@
 screen_width = 1920
 screen_height = 1080
 min_dimension = min(screen_width, screen_height)
-margin = int(min_dimension * 0.015) # 16
+margin = int(min_dimension * 0.0075) # 16
 
 cell_size_x = margin * 2 # 32
 cell_size_y = cell_size_x

@@ -54,9 +54,9 @@ class Maze:
         y2 = y1 + self._cell_size_x
         
         self._cells[i][j].draw(x1, y1, x2, y2)
-        self._animate(0.0125)
+        self._animate(wait_length=0.001)
     
-    def _animate(self, wait_length):
+    def _animate(self, wait_length=0.01):
         if self._win is None:
             return
         self._win.redraw()
@@ -123,7 +123,7 @@ class Maze:
             print("Maze unable to be solved.")
         
     def _solve_r(self, i, j):
-        self._animate(0.025)
+        self._animate(wait_length=0.025)
 
         self._cells[i][j].visited = True    # i = column number (x position), j = row number (y position)
         if i == self._num_cols - 1 and j == self._num_rows - 1:

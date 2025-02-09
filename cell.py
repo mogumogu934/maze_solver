@@ -57,9 +57,9 @@ class Cell:
         x_center_2 = to_cell._x1 + to_half_length
         y_center_2 = to_cell._y1 + to_half_length
         
-        fill_color = "magenta"
+        fill_color = "#acfec0"
         if undo:
-            fill_color = "grey"
+            fill_color = "red"
             
         line = Line(Point(x_center_1, y_center_1), Point(x_center_2, y_center_2))
         self._win.draw_line(line, fill_color)

@@ -13,5 +13,5 @@ def main():
 
 if __name__ == "__main__":
     import sys
-    sys.setrecursionlimit(1500)
+    sys.setrecursionlimit(4500)
     main()

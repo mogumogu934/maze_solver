@@ -36,13 +36,12 @@ class Line:
         self.point2 = point2
     
     def draw(self, canvas, fill_color):
-        if min_dimension >= 2160:
-            width = 4
-        elif min_dimension >= 1080:
-            width = 3
-        elif min_dimension >= 540:
+        if min_dimension <= 540:
+            width = 1
+        elif min_dimension <= 1080:
             width = 2
         else:
-            width = 1
+            width = 3
+
         canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=width)
         
