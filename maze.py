@@ -1,6 +1,8 @@
+from constants import maze_x_offset, maze_y_offset
 from cell import Cell
-import time
 import random
+import time
+import re
 
 class Maze:
     def __init__(
@@ -15,8 +17,8 @@ class Maze:
         seed=None,
     ):
         self._cells = []
-        self._x1 = x1
-        self._y1 = y1
+        self._x1 = x1 + maze_x_offset
+        self._y1 = y1 + maze_y_offset
         self._num_rows = num_rows
         self._num_cols = num_cols
         self._cell_size_x = cell_size_x
@@ -110,10 +112,19 @@ class Maze:
                 cell.visited = False
                 
     def solve(self):
-        return self._solve_r(0, 0)
+        start = time.time()
+        if self._solve_r(0, 0):
+            end = time.time()
+            # Remove any decimal places past third digit
+            regex = r"(\d+\.\d{0,3})"
+            time_elapsed = (re.match(regex, str(end - start))).group(0)
+            print(f"Maze solved in {time_elapsed} seconds!")
+        else:
+            print("Maze unable to be solved.")
         
     def _solve_r(self, i, j):
         self._animate(0.025)
+
         self._cells[i][j].visited = True    # i = column number (x position), j = row number (y position)
         if i == self._num_cols - 1 and j == self._num_rows - 1:
             return True
@@ -142,7 +153,7 @@ class Maze:
         if i > 0 and not self._cells[i - 1][j].has_right_wall and not self._cells[i - 1][j].visited:   # cell left
             self._cells[i][j].draw_move(self._cells[i - 1][j])
             if self._solve_r(i - 1, j):
-                return True               
+                return True
             else:
                 self._cells[i][j].draw_move(self._cells[i - 1][j], undo=True)
                 

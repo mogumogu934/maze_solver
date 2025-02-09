@@ -1,4 +1,5 @@
 from tkinter import Tk, BOTH, Canvas
+from constants import min_dimension
 
 class Window:
     def __init__(self, width, height):
@@ -35,5 +36,13 @@ class Line:
         self.point2 = point2
     
     def draw(self, canvas, fill_color):
-        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=3)
+        if min_dimension >= 2160:
+            width = 4
+        elif min_dimension >= 1080:
+            width = 3
+        elif min_dimension >= 720:
+            width = 2
+        else:
+            width = 1
+        canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=width)
         
