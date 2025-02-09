@@ -40,7 +40,7 @@ class Line:
             width = 4
         elif min_dimension >= 1080:
             width = 3
-        elif min_dimension >= 720:
+        elif min_dimension >= 540:
             width = 2
         else:
             width = 1
