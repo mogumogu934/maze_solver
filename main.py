@@ -3,9 +3,9 @@ from graphics import Window
 from maze import Maze
 
 def main():
-    win = Window(screen_width, screen_height)
-    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
-    num_cells = num_rows * num_cols
+    win = Window(SCREEN_WIDTH, SCREEN_HEIGHT)
+    maze = Maze(MARGIN, MARGIN, MAZE_NUM_COLS, MAZE_NUM_ROWS, MAZE_CELL_SIZE_X, MAZE_CELL_SIZE_Y, win)
+    num_cells = MAZE_NUM_COLS * MAZE_NUM_ROWS
     print(f"Created a maze with {num_cells} cells.")
     maze.solve()
     
@@ -13,5 +13,10 @@ def main():
 
 if __name__ == "__main__":
     import sys
-    sys.setrecursionlimit(4500)
+    sys.setrecursionlimit(6000)
+    if MIN_DIMENSION > 1080:
+        sys.setrecursionlimit(12000)
+    if MIN_DIMENSION >= 2160:
+        sys.setrecursionlimit(18000)
+        
     main()

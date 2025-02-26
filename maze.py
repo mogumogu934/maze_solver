@@ -1,4 +1,4 @@
-from constants import maze_x_offset, maze_y_offset
+from constants import MAZE_X_OFFSET, MAZE_Y_OFFSET, MAZE_NUM_COLS, MAZE_NUM_ROWS, MAZE_CELL_SIZE_X, MAZE_CELL_SIZE_Y, CELL_DRAW_TIME, SOLVE_DRAW_TIME
 from cell import Cell
 import random
 import time
@@ -9,20 +9,20 @@ class Maze:
         self,
         x1,
         y1,
-        num_rows,
         num_cols,
+        num_rows,
         cell_size_x,
         cell_size_y,
         win=None,
         seed=None,
     ):
         self._cells = []
-        self._x1 = x1 + maze_x_offset
-        self._y1 = y1 + maze_y_offset
-        self._num_rows = num_rows
-        self._num_cols = num_cols
-        self._cell_size_x = cell_size_x
-        self._cell_size_y = cell_size_y
+        self._x1 = x1 + MAZE_X_OFFSET
+        self._y1 = y1 + MAZE_Y_OFFSET
+        self._num_cols = MAZE_NUM_COLS
+        self._num_rows = MAZE_NUM_ROWS
+        self._cell_size_x = MAZE_CELL_SIZE_X
+        self._cell_size_y = MAZE_CELL_SIZE_Y
         self._win = win
         
         if seed:
@@ -54,9 +54,9 @@ class Maze:
         y2 = y1 + self._cell_size_x
         
         self._cells[i][j].draw(x1, y1, x2, y2)
-        self._animate(wait_length=0.001)
+        self._animate()
     
-    def _animate(self, wait_length=0.01):
+    def _animate(self, wait_length=CELL_DRAW_TIME):
         if self._win is None:
             return
         self._win.redraw()
@@ -123,7 +123,7 @@ class Maze:
             print("Maze unable to be solved.")
         
     def _solve_r(self, i, j):
-        self._animate(wait_length=0.025)
+        self._animate(wait_length=SOLVE_DRAW_TIME)
 
         self._cells[i][j].visited = True    # i = column number (x position), j = row number (y position)
         if i == self._num_cols - 1 and j == self._num_rows - 1:

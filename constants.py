@@ -1,15 +1,18 @@
-screen_width = 1920
-screen_height = 1080
-min_dimension = min(screen_width, screen_height)
-margin = int(min_dimension * 0.0075) # 16
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
+MIN_DIMENSION = min(SCREEN_WIDTH, SCREEN_HEIGHT)
+MARGIN = 8
 
-cell_size_x = margin * 2 # 32
-cell_size_y = cell_size_x
-num_cols = (screen_width - margin * 2) // cell_size_x # 59
-num_rows = (screen_height - margin * 2) // cell_size_y # 32
+MAZE_CELL_SIZE_X = MARGIN * 2
+MAZE_CELL_SIZE_Y = MAZE_CELL_SIZE_X
+MAZE_NUM_COLS = (SCREEN_WIDTH - MARGIN * 2) // MAZE_CELL_SIZE_X
+MAZE_NUM_ROWS = (SCREEN_HEIGHT - MARGIN * 2) // MAZE_CELL_SIZE_Y
 
-# Create offsets to center the maze when screen resolution is not a square
-maze_width = num_cols * cell_size_x + (margin * 2)
-maze_height = num_rows * cell_size_y + (margin * 2)
-maze_x_offset = (screen_width - maze_width) // 2
-maze_y_offset = (screen_height - maze_height) // 2
+# Create offsets to center the maze when screen width is not the same as screen height
+MAZE_WIDTH = MAZE_NUM_COLS * MAZE_CELL_SIZE_X + (MARGIN * 2)
+MAZE_HEIGHT = MAZE_NUM_ROWS * MAZE_CELL_SIZE_Y + (MARGIN * 2)
+MAZE_X_OFFSET = (SCREEN_WIDTH - MAZE_WIDTH) // 2
+MAZE_Y_OFFSET = (SCREEN_HEIGHT - MAZE_HEIGHT) // 2
+
+CELL_DRAW_TIME = 0.0 # seconds
+SOLVE_DRAW_TIME = 0.025 # seconds

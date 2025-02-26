@@ -1,5 +1,4 @@
 from tkinter import Tk, BOTH, Canvas
-from constants import min_dimension
 
 class Window:
     def __init__(self, width, height):
