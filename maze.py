@@ -2,7 +2,6 @@ from constants import MAZE_X_OFFSET, MAZE_Y_OFFSET, MAZE_NUM_COLS, MAZE_NUM_ROWS
 from cell import Cell
 import random
 import time
-import re
 
 class Maze:
     def __init__(
@@ -113,14 +112,14 @@ class Maze:
                 
     def solve(self):
         start = time.time()
-        if self._solve_r(0, 0):
-            end = time.time()
-            # Remove any decimal places past third digit
-            regex = r"(\d+\.\d{0,3})"
-            time_elapsed = (re.match(regex, str(end - start))).group(0)
-            print(f"Maze solved in {time_elapsed} seconds!")
-        else:
+        if not self._solve_r(0, 0):
             print("Maze unable to be solved.")
+            return
+        end = time.time()
+        time_elapsed = end - start
+        # Remove any decimal places past third digit
+        print(f"Maze solved in {time_elapsed:.3f} seconds!")
+            
         
     def _solve_r(self, i, j):
         self._animate(wait_length=SOLVE_DRAW_TIME)
